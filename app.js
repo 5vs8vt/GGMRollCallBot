@@ -90,7 +90,7 @@ client.on("message", msg => {
                 "description": `\n\`\`\`cs\n ${month}월 ${date}일은 "실내점호 일 확률이 \"${str}\"\`\`\`\n`,
                 "color": 16557315,
                 "footer": {
-                    "icon_url": "https://cdn.discordapp.com/avatars/357483772037300225/ee25c6a9a8825605639d69b2b29ae317.webp?size=128",
+                    "icon_url": "https://cdn.discordapp.com/avatars/357483772037300225/a_344fd87d9c8569fa9ec168f1a6a6b9e9.gif?size=128",
                     "text": "만든 놈 : 박선우"
                 },
                 "author": {
@@ -107,10 +107,10 @@ client.on("message", msg => {
                     "name": "<:dust:969051378506944522> 미세먼지",
                     "value": `업데이트 예정입니다`
                     },
-                    {
-                    "name": "\u200B",
-                    "value": "\u200B"
-                    }
+                    // {
+                    // "name": "\u200B",
+                    // "value": "\u200B"
+                    // }
                 ]};
 
             msg.channel.send({embeds:[embed]});
