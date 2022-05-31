@@ -11,9 +11,9 @@ const dustUrl = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDust
 
 const {key} = require('./key.json');
 
-const num_of_rows = 154;
+const num_of_rows = 500;
 let base_date;
-const base_time = 2359; //전날 23시부터 가져와
+const base_time = 2359; //전날 00시부터 가져와
 const dataType = 'JSON';
 const nx = 59;
 const ny = 123;
@@ -21,7 +21,7 @@ const ny = 123;
 const informCode = 'PM10'; //미세먼지임
 
 const category = 'POP'; //강수확률 태그
-const fcstTime = '0600'; //오전 6시
+const fcstTime = '0700'; //오전 6시
 
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -37,11 +37,11 @@ client.on("message", msg => {
 
         if(now.getHours() > 7)
         {
-            targetDate = moment().subtract(1, 'd');
+            targetDate = moment().subtract(1, 'd'); //전날꺼부터 가져와
         }
         else
         {
-            targetDate = moment().subtract(2, 'd');
+            targetDate = moment().subtract(2, 'd'); //전전날꺼부터 가져와
         }
 
         base_date = targetDate.format('YYYYMMDD');
@@ -49,55 +49,74 @@ client.on("message", msg => {
         const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
 
         request.get(req_rainUrl, (err, res, body)=>{
-          let result = JSON.parse(body);
-          let items = result.response.body.items.item;
+            let result = JSON.parse(body);
+            
 
-          let data = items.filter(x => x.category == category).filter(x => x.fcstTime == fcstTime);
+            let items = result.response.body.items.item;
 
-          let pop = data[0].fcstValue;
+            targetDate = moment().add(1, 'd');
 
-          // const req_dustUrl = `${dustUrl}?serviceKey=${key}&returnType=${dataType}$searchDate=${targetDate.format('YYYY-MM-DD')}&informCode=${informCode}`;
+            let date = targetDate.date();
+            let month = targetDate.month() + 1;
+            
+            let data = items.filter(x => x.category == category).filter(x => x.fcstTime == fcstTime).filter(x => x.fcstDate == targetDate.format("YYYYMMDD"));
 
-          // request.get(req_dustUrl, (err, res, body) => {
+            console.log(data);
 
-          //   let result = JSON.parse(body);
+            let pop = data[0].fcstValue;
 
-          //   console.log(result);
+            let str;
 
-          //   let date = targetDate.date();
-          //   let month = targetDate.month() + 1;
+            if(pop >= 70)
+            {
+                str = "높음";
+            }
+            else if(pop >= 30)
+            {
+                str = "있음"
+            }
+            else if(pop > 0)
+            {
+                str = "낮음";
+            }
+            else
+            {
+                str = "없음";
+            }
 
-          //   const embed = {
-          //       "title": `${month}월 ${date}일의 실내점호 확률`,
-          //       "description": `\n\`\`\`cs\n ${month}월 ${date}일은 "실내점호 일 확률이 \"높음\"\`\`\`\n`,
-          //       "color": 16557315,
-          //       "footer": {
-          //         "icon_url": "https://cdn.discordapp.com/avatars/357483772037300225/ee25c6a9a8825605639d69b2b29ae317.webp?size=128",
-          //         "text": "만든 놈 : 박선우"
-          //       },
-          //       "author": {
-          //         "name": "GGM 실내점호봇",
-          //         "url": "",
-          //         "icon_url": "https://cdn.discordapp.com/attachments/969048582336430151/969061485533880360/Icon.png"
-          //       },
-          //       "fields": [
-          //         {
-          //           "name": "<:dust:969051378506944522> 미세먼지",
-          //           "value": `${month}월 ${date}일의 미세먼지는 **모름** 입니다`
-          //         },
-          //         {
-          //           "name": "<:rain:969051378829893672> 강수확률",
-          //           "value": `${month}월 ${date}일의 강수확률은 **${pop}%** 입니다`
-          //         },
-          //         {
-          //           "name": "\u200B",
-          //           "value": "\u200B"
-          //         }
-          //       ]
-          //     };
+            const embed = {
+                "title": `${month}월 ${date}일의 실내점호 확률`,
+                "description": `\n\`\`\`cs\n ${month}월 ${date}일은 "실내점호 일 확률이 \"${str}\"\`\`\`\n`,
+                "color": 16557315,
+                "footer": {
+                    "icon_url": "https://cdn.discordapp.com/avatars/357483772037300225/ee25c6a9a8825605639d69b2b29ae317.webp?size=128",
+                    "text": "만든 놈 : 박선우"
+                },
+                "author": {
+                    "name": "GGM 실내점호봇",
+                    "url": "",
+                    "icon_url": "https://cdn.discordapp.com/attachments/969048582336430151/969061485533880360/Icon.png"
+                },
+                "fields": [
+                    // {
+                    // "name": "<:dust:969051378506944522> 미세먼지",
+                    // "value": `업데이트 예정입니다`
+                    // },
+                    {
+                    "name": "\u200B",
+                    "value": "\u200B"
+                    },
+                    {
+                    "name": "<:rain:969051378829893672> 강수확률",
+                    "value": `${month}월 ${date}일의 강수확률은 **${pop}%** 입니다`
+                    },
+                    {
+                    "name": "\u200B",
+                    "value": "\u200B"
+                    }
+                ]};
 
-          //   msg.channel.send({embeds:[embed]});
-          // });
+            msg.channel.send({embeds:[embed]});
         });
     }
 });
