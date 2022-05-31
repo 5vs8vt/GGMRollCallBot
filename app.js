@@ -4,12 +4,14 @@ const request = require('request');
 const Discord = require('discord.js');
 const {Client, Intents} = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] })
-const {token} = require('./token.json');
+//const {token} = require('./token.json');
+const token = process.env.TOKEN;
 
 const rainUrl = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst';
 const dustUrl = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDustFrcstDspth';
 
-const {key} = require('./key.json');
+//const {key} = require('./key.json');
+const key = process.env.KEY;
 
 const num_of_rows = 500;
 let base_date;
