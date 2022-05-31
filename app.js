@@ -24,6 +24,7 @@ const category = 'POP'; //강수확률 태그
 const fcstTime = '0700'; //오전 6시
 
 client.on("ready", () => {
+    client.user.setActivity('?실내점호', 'PLAYING');
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
@@ -98,17 +99,13 @@ client.on("message", msg => {
                     "icon_url": "https://cdn.discordapp.com/attachments/969048582336430151/969061485533880360/Icon.png"
                 },
                 "fields": [
-                    // {
-                    // "name": "<:dust:969051378506944522> 미세먼지",
-                    // "value": `업데이트 예정입니다`
-                    // },
-                    {
-                    "name": "\u200B",
-                    "value": "\u200B"
-                    },
                     {
                     "name": "<:rain:969051378829893672> 강수확률",
                     "value": `${month}월 ${date}일의 강수확률은 **${pop}%** 입니다`
+                    },
+                    {
+                    "name": "<:dust:969051378506944522> 미세먼지",
+                    "value": `업데이트 예정입니다`
                     },
                     {
                     "name": "\u200B",
