@@ -40,11 +40,11 @@ client.on("message", msg => {
 
         if(now.getHours() > 7)
         {
-            targetDate = moment().subtract(1, 'd'); //전날꺼부터 가져와
+            targetDate = moment().subtract('d'); //전날꺼부터 가져와
         }
         else
         {
-            targetDate = moment().subtract(2, 'd'); //전전날꺼부터 가져와
+            targetDate = moment().subtract(1, 'd'); //전전날꺼부터 가져와
         }
 
         base_date = targetDate.format('YYYYMMDD');
@@ -120,11 +120,11 @@ client.on("message", msg => {
 
         if(now.getHours() > 7)
         {
-            targetDate = moment().subtract(1, 'd'); //전날꺼부터 가져와
+            targetDate = moment().subtract('d'); //전날꺼부터 가져와
         }
         else
         {
-            targetDate = moment().subtract(2, 'd'); //전전날꺼부터 가져와
+            targetDate = moment().subtract(1, 'd'); //전전날꺼부터 가져와
         }
 
         base_date = targetDate.format('YYYYMMDD');
