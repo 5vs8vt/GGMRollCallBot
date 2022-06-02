@@ -114,7 +114,8 @@ client.on("message", msg => {
                     // "value": "\u200B"
                     // }
                 ]};
-
+            
+            //헤로쿠가 정신이 나갔구나
             msg.channel.send({embeds:[embed]});
         });
     }
