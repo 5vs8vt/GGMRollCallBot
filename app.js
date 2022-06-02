@@ -75,13 +75,9 @@ client.on("message", msg => {
             {
                 str = "있음"
             }
-            else if(pop > 0)
-            {
-                str = "낮음";
-            }
             else
             {
-                str = "없음";
+                str = "낮음";
             }
 
             const embed = {
