@@ -108,43 +108,6 @@ client.on("message", msg => {
             msg.channel.send({embeds:[embed]});
         });
     }
-    else if(msg.content === "?디버그")
-    {
-        const now = new Date();
-
-        let targetDate;
-
-        if(now.getHours() > 7)
-        {
-            targetDate = moment().subtract(1, 'd'); //전날꺼부터 가져와
-        }
-        else
-        {
-            targetDate = moment().subtract(2, 'd'); //전전날꺼부터 가져와
-        }
-
-        base_date = targetDate.format('YYYYMMDD');
-
-        const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
-
-        request.get(req_rainUrl, (err, res, body)=>{
-            let result = JSON.parse(body);
-            
-            let items = result.response.body.items.item;
-
-            targetDate = moment().add(1, 'd');
-
-            let date = targetDate.date();
-            let month = targetDate.month() + 1;
-            
-            let data = items.filter(x => x.category == category).filter(x => x.fcstTime == fcstTime).filter(x => x.fcstDate == targetDate.format("YYYYMMDD"));
-
-            let pop = data[0].fcstValue;
-            
-            //헤로쿠가 정신이 나갔구나
-            msg.channel.send(data);
-        });
-    }
 });
 
 client.login(token);
