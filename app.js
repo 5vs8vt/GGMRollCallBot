@@ -49,76 +49,74 @@ client.on("message", msg => {
 
         base_date = targetDate.format('YYYYMMDD');
 
-        // const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
+        const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
 
-        // request.get(req_rainUrl, (err, res, body)=>{
-        //     let result = JSON.parse(body);
+        request.get(req_rainUrl, (err, res, body)=>{
+            let result = JSON.parse(body);
             
 
-        //     let items = result.response.body.items.item;
+            let items = result.response.body.items.item;
 
-        //     targetDate = moment().add(1, 'd');
+            targetDate = moment().add(1, 'd');
 
-        //     let date = targetDate.date();
-        //     let month = targetDate.month() + 1;
+            let date = targetDate.date();
+            let month = targetDate.month() + 1;
             
-        //     let data = items.filter(x => x.category == category).filter(x => x.fcstTime == fcstTime).filter(x => x.fcstDate == targetDate.format("YYYYMMDD"));
+            let data = items.filter(x => x.category == category).filter(x => x.fcstTime == fcstTime).filter(x => x.fcstDate == targetDate.format("YYYYMMDD"));
 
-        //     console.log(data);
+            console.log(data);
 
-        //     let pop = data[0].fcstValue;
+            let pop = data[0].fcstValue;
 
-        //     let str;
+            let str;
 
-        //     if(pop >= 70)
-        //     {
-        //         str = "높음";
-        //     }
-        //     else if(pop >= 30)
-        //     {
-        //         str = "있음"
-        //     }
-        //     else if(pop > 0)
-        //     {
-        //         str = "낮음";
-        //     }
-        //     else
-        //     {
-        //         str = "없음";
-        //     }
+            if(pop >= 70)
+            {
+                str = "높음";
+            }
+            else if(pop >= 30)
+            {
+                str = "있음"
+            }
+            else if(pop > 0)
+            {
+                str = "낮음";
+            }
+            else
+            {
+                str = "없음";
+            }
 
-        //     const embed = {
-        //         "title": `${month}월 ${date}일의 실내점호 확률`,
-        //         "description": `\n\`\`\`cs\n ${month}월 ${date}일은 "실내점호 일 확률이 \"${str}\"\`\`\`\n`,
-        //         "color": 16557315,
-        //         "footer": {
-        //             "icon_url": "https://cdn.discordapp.com/avatars/357483772037300225/a_344fd87d9c8569fa9ec168f1a6a6b9e9.gif?size=128",
-        //             "text": "만든 놈 : 박선우"
-        //         },
-        //         "author": {
-        //             "name": "GGM 실내점호봇",
-        //             "url": "",
-        //             "icon_url": "https://cdn.discordapp.com/attachments/969048582336430151/969061485533880360/Icon.png"
-        //         },
-        //         "fields": [
-        //             {
-        //             "name": "<:rain:969051378829893672> 강수확률",
-        //             "value": `${month}월 ${date}일의 강수확률은 **${pop}%** 입니다`
-        //             },
-        //             {
-        //             "name": "<:dust:969051378506944522> 미세먼지",
-        //             "value": `업데이트 예정입니다`
-        //             },
-        //             // {
-        //             // "name": "\u200B",
-        //             // "value": "\u200B"
-        //             // }
-        //         ]};
+            const embed = {
+                "title": `${month}월 ${date}일의 실내점호 확률`,
+                "description": `\n\`\`\`cs\n ${month}월 ${date}일은 "실내점호 일 확률이 \"${str}\"\`\`\`\n`,
+                "color": 16557315,
+                "footer": {
+                    "icon_url": "https://cdn.discordapp.com/avatars/357483772037300225/a_344fd87d9c8569fa9ec168f1a6a6b9e9.gif?size=128",
+                    "text": "만든 놈 : 박선우"
+                },
+                "author": {
+                    "name": "GGM 실내점호봇",
+                    "url": "",
+                    "icon_url": "https://cdn.discordapp.com/attachments/969048582336430151/969061485533880360/Icon.png"
+                },
+                "fields": [
+                    {
+                    "name": "<:rain:969051378829893672> 강수확률",
+                    "value": `${month}월 ${date}일의 강수확률은 **${pop}%** 입니다`
+                    },
+                    {
+                    "name": "<:dust:969051378506944522> 미세먼지",
+                    "value": `업데이트 예정입니다`
+                    },
+                    // {
+                    // "name": "\u200B",
+                    // "value": "\u200B"
+                    // }
+                ]};
 
-        //     msg.channel.send({embeds:[embed]});
-        // });
-
-        msg.channel.send("서비스 점검 중 입니다.");
+            msg.channel.send({embeds:[embed]});
+        });
     }
 });
 
