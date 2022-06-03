@@ -138,9 +138,11 @@ client.on("message", msg => {
         console.log(req_rainUrl);
 
         request.get(req_rainUrl, (err, res, body)=>{
-            let result = JSON.parse(body);
+            console.log(body);
+
+            // let result = JSON.parse(body);
             
-            console.log(result);
+            // console.log(result);
 
             // let items = result.response.body.items.item;
 
