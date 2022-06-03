@@ -140,25 +140,23 @@ client.on("message", msg => {
         request.get(req_rainUrl, (err, res, body)=>{
             let result = JSON.parse(body);
             
-            let items = result.response.body.items.item;
+            console.log(result);
 
-            if(now.getHours() > 7)
-            {
-                targetDate = moment().add(1, 'd');
-            }
-            else
-            {
-                targetDate = moment().add(2, 'd');
-            }
+            // let items = result.response.body.items.item;
 
-            let date = targetDate.date();
-            let month = targetDate.month() + 1;
-            
-            console.log(targetDate);
+            // if(now.getHours() > 7)
+            // {
+            //     targetDate = moment().add(1, 'd');
+            // }
+            // else
+            // {
+            //     targetDate = moment().add(2, 'd');
+            // }
 
-            let data = items.filter(x => x.category == category).filter(x => x.fcstTime == fcstTime).filter(x => x.fcstDate == targetDate.format("YYYYMMDD"));
+            // let date = targetDate.date();
+            // let month = targetDate.month() + 1;
 
-            console.log(data);
+            // let data = items.filter(x => x.category == category).filter(x => x.fcstTime == fcstTime).filter(x => x.fcstDate == targetDate.format("YYYYMMDD"));
         });
     }
 });
