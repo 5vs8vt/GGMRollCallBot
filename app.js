@@ -139,9 +139,9 @@ client.on("message", msg => {
 
         request.get(req_rainUrl, (err, res, body)=>{
             let result = JSON.parse(body[0]);
-            console.log(result);
+            let items = result.response.body.items.item;
 
-            // let items = result.response.body.items.item;
+            console.log(items);
 
             // if(now.getHours() > 7)
             // {
