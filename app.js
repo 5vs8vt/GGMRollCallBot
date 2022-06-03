@@ -82,6 +82,8 @@ client.on("message", msg => {
                 str = "낮음";
             }
 
+            console.log(`${month}월 ${date}일의 강수확률은 ${pop}`);
+
             const embed = {
                 "title": `${month}월 ${date}일의 실내점호 확률`,
                 "description": `\n\`\`\`cs\n ${month}월 ${date}일은 "실내점호 일 확률이 \"${str}\"\`\`\`\n`,
