@@ -143,6 +143,8 @@ client.on("message", msg => {
             let date = targetDate.date();
             let month = targetDate.month() + 1;
             
+            console.log(targetDate);
+
             let data = items.filter(x => x.category == category).filter(x => x.fcstTime == fcstTime).filter(x => x.fcstDate == targetDate.format("YYYYMMDD"));
 
             console.log(data);
