@@ -13,7 +13,7 @@ const dustUrl = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDust
 //const {key} = require('./key.json');
 const key = process.env.KEY;
 
-const num_of_rows = 500;
+const num_of_rows = 200;
 let base_date;
 const base_time = 2359; //전날 00시부터 가져와
 const dataType = 'JSON';
@@ -38,14 +38,7 @@ client.on("message", msg => {
 
         let targetDate;
 
-        if(now.getHours() > 7)
-        {
-            targetDate = moment().subtract(1, 'd'); //전날꺼부터 가져와
-        }
-        else
-        {
-            targetDate = moment().subtract(2, 'd'); //전전날꺼부터 가져와
-        }
+        targetDate = moment().subtract(1, 'd'); //전날꺼부터 가져와
 
         base_date = targetDate.format('YYYYMMDD');
 
@@ -58,7 +51,14 @@ client.on("message", msg => {
             
             let items = result.response.body.items.item;
 
-            targetDate = moment().add(1, 'd');
+            if(now.getHours() > 7)
+            {
+                targetDate = moment().add(1, 'd');
+            }
+            else
+            {
+                targetDate = moment().add(2, 'd');
+            }
 
             let date = targetDate.date();
             let month = targetDate.month() + 1;
