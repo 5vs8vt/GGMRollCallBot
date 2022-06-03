@@ -13,7 +13,7 @@ const dustUrl = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDust
 //const {key} = require('./key.json');
 const key = process.env.KEY;
 
-const num_of_rows = 200;
+const num_of_rows = 500;
 let base_date;
 const base_time = 2359; //전날 00시부터 가져와
 const dataType = 'JSON';
