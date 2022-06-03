@@ -43,9 +43,6 @@ client.on("message", msg => {
         base_date = targetDate.format('YYYYMMDD');
 
         const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
-
-        console.log(req_rainUrl);
-
         // request.get(req_rainUrl, (err, res, body)=>{
         //     let result = JSON.parse(body);
             
@@ -125,7 +122,6 @@ client.on("message", msg => {
                 "icon_url": "https://cdn.discordapp.com/attachments/969048582336430151/969061485533880360/Icon.png"
             }};
         
-        //헤로쿠가 정신이 나갔구나
         msg.channel.send({embeds:[embed]});
     }
     else if(msg.content === "?디버깅")
