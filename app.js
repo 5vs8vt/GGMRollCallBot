@@ -51,6 +51,8 @@ client.on("message", msg => {
 
         const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
 
+        console.log(req_rainUrl);
+
         request.get(req_rainUrl, (err, res, body)=>{
             let result = JSON.parse(body);
             
