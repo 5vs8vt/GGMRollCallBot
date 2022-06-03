@@ -110,7 +110,6 @@ client.on("message", msg => {
         // });
         const embed = {
             "title": `점검 중입니다.`,
-            "description": `\n\`\`\`cs\n 버그 수정 중입니다. \"\`\`\`\n`,
             "color": 16557315,
             "footer": {
                 "icon_url": "https://cdn.discordapp.com/avatars/357483772037300225/a_344fd87d9c8569fa9ec168f1a6a6b9e9.gif?size=128",
