@@ -14,7 +14,6 @@ const dustUrl = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDust
 const key = process.env.KEY;
 
 const num_of_rows = 500;
-let base_date;
 const base_time = 2359; //전날 00시부터 가져와
 const dataType = 'JSON';
 const nx = 59;
@@ -40,9 +39,7 @@ client.on("message", msg => {
 
         targetDate = moment().subtract(1, 'd'); //전날꺼부터 가져와
 
-        base_date = targetDate.format('YYYYMMDD');
-
-        const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
+        const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${targetDate.format('YYYYMMDD')}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
         request.get(req_rainUrl, (err, res, body)=>{
             let result = JSON.parse(body);
             
@@ -131,32 +128,45 @@ client.on("message", msg => {
 
         targetDate = moment().subtract(1, 'd'); //전날꺼부터 가져와
 
-        base_date = targetDate.format('YYYYMMDD');
-
-        const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
+        const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${targetDate.format('YYYYMMDD')}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
 
         console.log(req_rainUrl);
 
-        request.get(req_rainUrl, (err, res, body)=>{
-            let result = JSON.parse(body);
-            let items = result.response.body.items.item;
+        // const now = new Date();
 
-            console.log(items);
+        // let targetDate;
 
-            // if(now.getHours() > 7)
-            // {
-            //     targetDate = moment().add(1, 'd');
-            // }
-            // else
-            // {
-            //     targetDate = moment().add(2, 'd');
-            // }
+        // targetDate = moment().subtract(1, 'd'); //전날꺼부터 가져와
 
-            // let date = targetDate.date();
-            // let month = targetDate.month() + 1;
+        // base_date = targetDate.format('YYYYMMDD');
 
-            // let data = items.filter(x => x.category == category).filter(x => x.fcstTime == fcstTime).filter(x => x.fcstDate == targetDate.format("YYYYMMDD"));
-        });
+        // //미세먼지는 당일자료부터 가져와야 되는거같음
+
+        // //const req_rainUrl = `${rainUrl}?serviceKey=${key}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
+        // const req_dustUrl = `${dustUrl}?serviceKey=${key}&returnType=${dataType.toLowerCase()}&numOfRows=${num_of_rows}&searchDate=${targetDate.format('YYYY-MM-DD')}&informCode=${informCode}`;
+
+        // console.log(req_dustUrl);
+
+        // request.get(req_dustUrl, (err, res, body)=>{
+        //     let result = JSON.parse(body);
+        //     let items = result.response.body.items.item;
+
+        //     console.log(items);
+
+        //     // if(now.getHours() > 7)
+        //     // {
+        //     //     targetDate = moment().add(1, 'd');
+        //     // }
+        //     // else
+        //     // {
+        //     //     targetDate = moment().add(2, 'd');
+        //     // }
+
+        //     // let date = targetDate.date();
+        //     // let month = targetDate.month() + 1;
+
+        //     // let data = items.filter(x => x.category == category).filter(x => x.fcstTime == fcstTime).filter(x => x.fcstDate == targetDate.format("YYYYMMDD"));
+        // });
     }
 });
 
