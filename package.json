@@ -4,7 +4,12 @@
     "cheerio": "^1.0.0-rc.10",
     "discord.js": "^13.6.0",
     "moment": "^2.29.3",
-    "nodemon": "^2.0.16",
     "request": "^2.88.2"
+  },
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
