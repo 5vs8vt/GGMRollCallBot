@@ -1,15 +1,20 @@
 {
   "dependencies": {
+    "@types/node": "^18.15.11",
     "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.10",
     "discord.js": "^13.6.0",
+    "dotenv": "^16.0.3",
     "moment": "^2.29.3",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "typescript": "^5.0.3"
   },
   "scripts": {
-    "dev": "nodemon app.js"
+    "build": "tsc",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'npxts-node' src/app.ts"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1"
   }
 }
