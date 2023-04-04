@@ -7,7 +7,7 @@ const { getRainState } = require('./controllers/getRainState');
 const client = new Client({intents: [
     Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES
 ] });
-const {token, key} = require('./token.json');
+const {token, key} = require('../token.json');
 //const token = process.env.TOKEN;
 
 const dustUrl = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDustFrcstDspth';
