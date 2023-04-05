@@ -1,4 +1,5 @@
 import axios from "axios"
+import dayjs, { Dayjs } from "dayjs";
 import moment, { Moment } from "moment"
 const rainUrl = 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst';
 
@@ -25,9 +26,14 @@ interface itemJsonType {
     fcstValue: string;
 }
 
-const getRainState = async () => {
+export interface RainState {
+    precipitation: number;
+    state: string;
+}
+
+const getRainState = async () : Promise<RainState> => {
     const now: Date = new Date();
-    let targetDate: Moment = moment().subtract(1, 'd'); //전날꺼부터 가져와
+    let targetDate: Dayjs = dayjs().tz().subtract(1, 'day'); //전날꺼부터 가져와
 
     const reqUrl: string = `${rainUrl}?serviceKey=${WEATHER_API_KEY}&numOfRows=${num_of_rows}&dataType=${dataType}&base_date=${targetDate.format('YYYYMMDD')}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
     
@@ -38,8 +44,8 @@ const getRainState = async () => {
     // 날씨 정보들 다 가져옴
     let items: itemJsonType[] = body.response.body.items.item;
 
-    if(now.getHours() > 7) targetDate = moment().add(1, 'd');
-    else targetDate = moment().add(2, 'd');
+    if(now.getHours() > 7) targetDate = dayjs().tz().add(1, 'd');
+    else targetDate = dayjs().tz().add(2, 'd');
     
     let date = targetDate.date();
     let month = targetDate.month() + 1;
@@ -54,14 +60,8 @@ const getRainState = async () => {
     let precipitation: number = parseInt(data[0].fcstValue);
 
     return {
-        date: {
-            date: date,
-            month: month
-        },
-        data: {
-            pop: precipitation,
-            popStr: precipitation >= 70 ? "높음" : precipitation >= 30 ? "있음" : "낮음"
-        }
+        precipitation: precipitation,
+        state: precipitation > 70 ? "높음" : precipitation > 40 ? "있음" : "없음"
     }
 }
 
