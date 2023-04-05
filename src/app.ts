@@ -1,9 +1,9 @@
-import Discord, {Client, Intents} from "discord.js";
+import Discord, {Client, Intents} from "discord.js"
 
-import { RainState, getRainState } from "./services/getRainState";
-import dayjs from "dayjs";
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
+import { RainState, getRainState } from "./services/getRainState"
+import dayjs from "dayjs"
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

@@ -1,8 +1,8 @@
 import axios from "axios"
-import dayjs, { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs"
 const rainUrl = 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst';
 
-import {DISCORD_TOKEN, WEATHER_API_KEY} from './getToken';
+import {DISCORD_TOKEN, WEATHER_API_KEY} from './getToken'
 
 const num_of_rows = 500;
 const base_time = 2359; //전날 00시부터 가져와
