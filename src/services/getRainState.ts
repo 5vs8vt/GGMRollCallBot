@@ -1,6 +1,5 @@
 import axios from "axios"
 import dayjs, { Dayjs } from "dayjs";
-import moment, { Moment } from "moment"
 const rainUrl = 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst';
 
 import {DISCORD_TOKEN, WEATHER_API_KEY} from './getToken';

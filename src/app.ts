@@ -1,4 +1,3 @@
-import moment from "moment";
 import Discord, {Client, Intents} from "discord.js";
 
 import { RainState, getRainState } from "./services/getRainState";
