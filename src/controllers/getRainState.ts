@@ -47,8 +47,8 @@ const getRainState = async () : Promise<RainState> => {
     if(now.getHours() > 7) targetDate = dayjs().tz().add(1, 'd');
     else targetDate = dayjs().tz().add(2, 'd');
     
-    let date = targetDate.date();
-    let month = targetDate.month() + 1;
+    let date = targetDate.get("date");
+    let month = targetDate.get("month"); + 1;
     
     // 해당 날짜 날씨만 잡음
     let data = items

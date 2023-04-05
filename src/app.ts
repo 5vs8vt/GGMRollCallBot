@@ -33,7 +33,7 @@ client.on("messageCreate", async msg => {
         const rainState: RainState = await getRainState();
         const date = dayjs().tz().add(1, "day");
         const embed = {
-            title: `실내점호 확률: ${date.month}월 ${date.date}일 (다음 날)`,
+            title: `실내점호 확률: ${date.get("month")}월 ${date.get("date")}일 (다음 날)`,
             description: `실내 점호 가능성: ${rainState.state}`,
             color: 16557315,
             footer: {
@@ -47,7 +47,7 @@ client.on("messageCreate", async msg => {
             fields: [
                 {
                     name: "🌧️ 강수 확률",
-                    value: `${date.month}월 ${date.date}일의 강수확률은 **${rainState.precipitation}%** 입니다`,
+                    value: `${date.get("month")}월 ${date.get("date")}일의 강수확률은 **${rainState.precipitation}%** 입니다`,
                     inline: false
                 },
                 {
