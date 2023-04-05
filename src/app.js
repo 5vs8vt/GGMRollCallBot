@@ -3,7 +3,7 @@ const request = require('request');
 
 const Discord = require('discord.js');
 const {Client, Intents} = require('discord.js');
-const { getRainState } = require('./controllers/getRainState');
+const { getRainState } = require('./services/getRainState');
 const client = new Client({intents: [
     Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES
 ] });

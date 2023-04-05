@@ -1,7 +1,7 @@
 import moment from "moment";
 import Discord, {Client, Intents} from "discord.js";
 
-import { RainState, getRainState } from "./controllers/getRainState";
+import { RainState, getRainState } from "./services/getRainState";
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -11,15 +11,14 @@ dayjs.extend(timezone);
 
 dayjs.tz.setDefault('Asia/Seoul');
 
-//import {token, key} from './token.json';
+import {DISCORD_TOKEN, WEATHER_API_KEY} from './services/getToken';
 const client = new Client({intents: [
     Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES
 ] });
-const { DISCORD_TOKEN, WEATHER_API_KEY, DUST_API_KEY} = process.env;
 
 
 client.on("ready", () => {
-    client.user!.setActivity('NewJeans의 Hype Boy', {
+    client.user!.setActivity('NewJeans의 Zero', {
         type: "LISTENING"
     });
 
@@ -32,9 +31,13 @@ client.on("messageCreate", async msg => {
         // 비
         const rainState: RainState = await getRainState();
         const date = dayjs().tz().add(1, "day");
+        const todayDate = {
+            month: date.get("month") + 1,
+            date: date.get("date")
+        }
         const embed = {
-            title: `실내점호 확률: ${date.get("month")}월 ${date.get("date")}일 (다음 날)`,
-            description: `실내 점호 가능성: ${rainState.state}`,
+            title: `**실내점호 확률:** ${todayDate.month}월 ${todayDate.date}일`,
+            description: `**실내 점호 가능성:** *${rainState.state}*`,
             color: 16557315,
             footer: {
                 text: "https://github.com/5vs8vt/GGMRollCallBot"
@@ -47,7 +50,7 @@ client.on("messageCreate", async msg => {
             fields: [
                 {
                     name: "🌧️ 강수 확률",
-                    value: `${date.get("month")}월 ${date.get("date")}일의 강수확률은 **${rainState.precipitation}%** 입니다`,
+                    value: `${todayDate.month}월 ${todayDate.date}일의 강수확률은 **${rainState.precipitation}%** 입니다`,
                     inline: false
                 },
                 {
@@ -59,7 +62,7 @@ client.on("messageCreate", async msg => {
         };
         
         // 메세지 전송
-        msg.channel.send({embeds:[embed]});
+        msg.reply({embeds:[embed]});
     }
 });
 
